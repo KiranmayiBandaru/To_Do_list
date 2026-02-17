@@ -1,25 +1,66 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  
+  const [tasks, setTasks] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  function addTask(){
+    if(inputValue.trim() === "") return;
+    setTasks([...tasks, inputValue]);  
+    setInputValue("")
+  }
+  function handleInputChange(e){
+    setInputValue(e.target.value);
+  }
+
+  function removeTask(index){
+     setTasks(tasks.filter((_, i) => i !== index));
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <InputAndButn 
+          inputValue={inputValue}
+          onInputChange={handleInputChange}
+          onAddTask={addTask}
+      />
+      <AddTasks 
+         tasks={tasks} 
+         onRemoveTask={removeTask}     
+      />
     </div>
   );
 }
+function InputAndButn({inputValue, onInputChange, onAddTask}){
+   return(
+    <>
+      <input 
+         type='text' 
+         placeholder='type the task here' 
+         value={inputValue}
+         onChange={onInputChange}
+      />
+      <button onClick={onAddTask}> ADD </button>
+    </>
+   );
+}
 
+function AddTasks({tasks, onRemoveTask}){
+   return(
+       <div>
+          {tasks.map((task, index)=>(
+            
+            <div key={index}>
+              <input type='checkbox' ></input>
+              <span>{task}</span>
+              <button
+                onClick={()=>onRemoveTask(index)}
+              >REMOVE</button>
+            </div> 
+          ))}
+       </div>
+    
+   );
+}
 export default App;
