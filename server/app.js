@@ -1,12 +1,14 @@
 import express from 'express' ;
 import cors from "cors";
+import userRoutes from "../routes/userRoutes.js";
+import taskRoutes from "../routes/taskRoutes.js";
 
 const app = express();
 
-let port = 3000;
-
 app.use(cors());
 app.use(express.json());
-app.listen(port , () => {
-    console.log(`the serve is alive on the localhost ${port}`);
-})
+
+app.use("/api" , userRoutes);
+app.use("/api" , taskRoutes);
+
+export default app;
