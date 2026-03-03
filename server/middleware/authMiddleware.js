@@ -11,13 +11,12 @@ export const authMiddleware = (req, res, next) => {
 
        const decoded = jwt.verify(token , "mysecretkey");  // decoded contains {id : "OBJECT_USER_ID" , ..}
 
-       req.user = decoded; // req.user = req.user.id will be available after the auth
-
+       req.user = decoded; // when the whole object consists of user.id , iat, exp using which we can access user_id
        next();
 
     }catch(err){
 
        return res.status(401).json({message : "Unauthorized"});
-       
+
     }
 };

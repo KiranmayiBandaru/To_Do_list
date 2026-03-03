@@ -1,6 +1,6 @@
 import express from "express";
-import { authMiddleware } from "../middleware/authMiddleware";
-import { getTasks , createTasks , updateTask , deleteTask } from "../controllers/taskControllers";
+import { authMiddleware } from "../middleware/authMiddleware.js";
+import { getTasks , createTasks , updateTask , deleteTask } from "../controllers/taskControllers.js";
 
 const router = express.Router();
 router.use(authMiddleware);

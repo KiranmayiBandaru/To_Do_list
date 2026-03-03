@@ -49,7 +49,7 @@ export const Userlogin = async (req, res) => {
 
       const token = jwt.sign(
           {id : existingUser._id}, //payload
-          "mysecretkey",  //secrets
+          process.env.JWT_SECRET,  //secrets
           {expiresIn : "1hr"} //options
       );
       return res.status(200).json({message : "login sucessful" , token : token});

@@ -1,4 +1,4 @@
-import UserTasks from './models/taskModel';
+import UserTasks from '../models/taskModel.js';
 
 export const getTasks = async (req, res) => {
       try{
@@ -34,7 +34,7 @@ export const createTasks = async (req, res) => {
 export const updateTask = async (req, res) => {
       try{
          const task = await UserTasks.findOneAndUpdate(
-            {_id : req.params.id },
+            {_id : req.params.id , user : req.user.id},
             req.body,
             {new : true}
          );
